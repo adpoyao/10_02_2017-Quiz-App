@@ -1,6 +1,32 @@
 'use strict';
 /* global $ */
 
+const q1 = {
+  question: 'What is the capital of California?',
+  answer: ['Los Angeles', 'Sacramento', 'San Francisco', 'Anaheim'],
+  answerKey: 1 //a
+};
+const q2 = {
+  question:'Where is Mt. Rushmore located?',
+  answer:['Washington D.C', 'Virginia', 'Montana', 'South Dakota'],
+  answerKey: 3 //d
+};
+const q3 = {
+  question: 'What is the biggest state in the United States?',
+  answer: ['Delaware', 'Texas', 'California', 'Alaska'],
+  answerKey: 3 //d
+};
+const q4 = {
+  question: 'Which countries are below the equator?',
+  answer: ['Costa Rica', 'Ethiopia', 'Peru', 'Iraq'],
+  answerKey: 2 //c
+};
+const q5 = {
+  question:'Which one is NOT a continent?',
+  answer: ['North America', 'Austraulia', 'Russia', 'Africa'],
+  answerKey: 2 //c
+};
+
 const STORE = {
   questions: [
     {question: q1, answered: false, correct: null}, 
@@ -13,41 +39,20 @@ const STORE = {
   correctAnswerCount: 0
 }; 
 
-const q1 = {
-  question: 'What is the capital of California?',
-  answer: ['Los Angeles', 'Sacramento', 'San Francisco', 'Anaheim'],
-  answerKey: 1 //a
-}
-const q2 = {
-  question:'Where is Mt. Rushmore located?',
-  answer:['Washington D.C', 'Virginia', 'Montana', 'South Dakota'],
-  answerKey: 3 //d
-}
-const q3 = {
-  question: 'What is the biggest state in the United States?',
-  answer: ['Delaware', 'Texas', 'California', 'Alaska'],
-  answerKey: 3 //d
-}
-const q4 = {
-  question: 'Which countries are below the equator?',
-  answer: ['Costa Rica', 'Ethiopia', 'Peru', 'Iraq'],
-  answerKey: 2 //c
-}
-const q5 = {
-  question:'Which one is NOT a continent?',
-  answer: ['North America', 'Austraulia', 'Russia', 'Africa'],
-  answerKey: 2 //c
-}
-
 //Rendering
 function renderPage(){
-  //Render STORE to DOM
+  let elementHTML = generateQuestionElement(STORE);
+  $('.js-page-content').html(elementHTML);
+  console.log('`renderPage` ran');
+  console.log(elementHTML);
 }
 
-function generateQuestionElement(){
-  if(STORE.view === 'intro') {
-     return (
-       `<div class= 'intro-view js-intro-view'>
+renderPage();
+
+function generateQuestionElement(store){
+  if(store.view === 'intro') {
+    return (
+      `<div class= 'intro-view js-intro-view'>
        <h2>Let's take a Geography quiz!</h2>
        <p>Instructions: Please select an answer for each question.</p>
        <p>Have fun!</p>
@@ -55,12 +60,12 @@ function generateQuestionElement(){
        <span>Start Quiz!</span>
        </button>
      </div>
-     `)
+     `);
   }
 
   else if(STORE.view === 'question') {
     return (
-    `<div class = 'question-view js-question-view'>
+      `<div class = 'question-view js-question-view'>
     <form id="js-quiz-form">
     <p class="question js-question">${QUESTION}</p>
     <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${A}</label>
@@ -74,20 +79,20 @@ function generateQuestionElement(){
     <button type="submit" class="submit-answer js-submit-answer"><span>Submit</span></button>
     <button type="button" class="next-question js-next-question"><span>Next Question</span></button>
     </form>
-    </div>`)
+    </div>`);
   }
 
   else if(STORE.view === 'outro') {
     return (
-    `<div class= 'outro-view js-outro-view'>
+      `<div class= 'outro-view js-outro-view'>
     <p>Congrats! You finished the quiz!</p>
-    <p>You scored ${#} out of 5</p>
+    <p>You scored ${NUMBER} out of 5</p>
     <p>Would you like to retake this quiz?</p>
     <button type="button">Yes I Would!</button> 
-    </div>`)
+    </div>`);
   }
-
 }
+
 
 //INTRO VIEW: listen for user to click "START" button
 function startQuiz(){
@@ -104,8 +109,7 @@ function handleAnswerSubmit(){
 }
 
 function processAnswer(){
-  //Listen for user selections on answers
-}
+//Listen for user selections on answers
 /* 
 ALERT: 
 (1)Textual Feedback: Correct OR Wrong OR Blank Answer;
@@ -114,12 +118,14 @@ ALERT:
 (2)Total correct answers
 */
 //User dismiss Alert
+}
 
 function handleNextQuestionButton(){
   //Listen for user to click "next" button
   //Condition: Answer must be submitted already
   //nextQuestion();
   //renderPage();
+}
 
 function nextQuestion(){ 
   //condition: if questions aren't all answered:
@@ -133,7 +139,7 @@ OUTRO VIEW:
 Display Total correct answer
 */
 
-function handlePlayAgainButton(){
+function handlePlayAgainButton() {
   //Listen for user to click "Play Again" button
   //Reset STORE
   //Change view to 'intro'
