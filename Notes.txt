@@ -48,3 +48,48 @@ Follow a11y best-practices.
 
 
 Be fully usable by keyboard and mouse (which will be easy enough if you start with a form).
+
+
+
+------------------------------
+Intro View: 
+>Let's take a Geography quiz! 
+>Instructions: 
+>"Start Quiz" button
+
+Quiz View:
+
+1. Question #1
+    What is the capital of California?
+    a. Los Angeles
+    b. Sacramento*
+    c. San Francisco
+    d. Anaheim
+
+2. Question #2
+    Where is Mt. Rushmore located?
+    a. Washington D.C.
+    b. Virginia
+    c. Montana
+    d. South Dakota*
+
+3. Question #3 
+    What is the biggest state in the United States?
+    a. Delaware
+    b. Texas
+    c. California
+    d. Alaska*
+
+4. Question #4
+    Which countries are below the equator?
+    a. Costa Rica 
+    b. Ethiopia
+    c. Peru*
+    d. Iraq
+
+5. Question #5
+    Which one is NOT a continent:
+    a. North America 
+    b. Austraulia
+    c. Russia*
+    d. Africa
