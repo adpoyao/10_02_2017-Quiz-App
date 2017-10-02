@@ -27,6 +27,8 @@ const q5 = {
   answerKey: 2 //c
 };
 
+//CONDENSE 
+
 const STORE = {
   prompt: [
     {questionBlock: q1, answered: false, correct: null}, 
@@ -37,6 +39,7 @@ const STORE = {
   ],
   view: 'intro',
   correctAnswerCount: 0
+  //Could use get syntax for report of # of correct answers
 }; 
 
 //Rendering
@@ -64,7 +67,7 @@ function generateQuestionElement(store){
   //TO DO: Figure out index loop  
   else if(store.view === 'question') {
     return (
-      `<div class = 'question-view js-question-view'>
+      `<div class=:question-view js-question-view">
     <form id="js-quiz-form">
     <p class="question js-question">${store.prompt[0].questionBlock.question}</p>
     <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${store.prompt[0].questionBlock.answer[0]}</label>
@@ -75,7 +78,7 @@ function generateQuestionElement(store){
     <br>
     <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${store.prompt[0].questionBlock.answer[3]}</label>
     <br>
-    <button type="button" class="submit-answer js-submit-answer"><span>Submit</span></button>
+    <button type="submit" class="submit-answer js-submit-answer"><span>Submit</span></button>
     <button type="button" class="next-question js-next-question"><span>Next Question</span></button>
     </form>
     </div>`);
@@ -107,8 +110,8 @@ function startQuiz(){
 
 //QUESTION VIEW
 function handleAnswerSubmit(){
-  //Listen for user to "submit" button
-  $('.js-question-view').on('click', event => {
+  //Listen for Answer to "submit" button
+  $('.js-page-content').on('submit','#js-quiz-form', event => {
     event.preventDefault();
     console.log('`handleAnswerSubmit` ran');
   });
