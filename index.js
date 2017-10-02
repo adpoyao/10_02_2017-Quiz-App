@@ -45,8 +45,27 @@ function renderPage(){
 }
 
 function generateQuestionElement(){
-  //Condition: State
-  //Add in HTML
+  if(STORE.view === 'intro') {
+     return (
+       `<div class= 'intro-view js-intro-view'>
+       <h2>Let's take a Geography quiz!</h2>
+       <p>Instructions: Please select an answer for each question.</p>
+       <p>Have fun!</p>
+       <button type="button">
+       <span>Start Quiz!</span>
+       </button>
+     </div>
+     `)
+  }
+
+  else if(STORE.view === 'question') {
+
+  }
+
+  else if(STORE.view === 'outro') {
+    
+  }
+
 }
 
 //INTRO VIEW: listen for user to click "START" button
