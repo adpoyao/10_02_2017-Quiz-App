@@ -28,12 +28,12 @@ const q5 = {
 };
 
 const STORE = {
-  questions: [
-    {question: q1, answered: false, correct: null}, 
-    {question: q2, answered: false, correct: null}, 
-    {question: q3, answered: false, correct: null}, 
-    {question: q4, answered: false, correct: null}, 
-    {question: q5, answered: false, correct: null}
+  prompt: [
+    {questionBlock: q1, answered: false, correct: null}, 
+    {questionBlock: q2, answered: false, correct: null}, 
+    {questionBlock: q3, answered: false, correct: null}, 
+    {questionBlock: q4, answered: false, correct: null}, 
+    {questionBlock: q5, answered: false, correct: null}
   ],
   view: 'intro',
   correctAnswerCount: 0
@@ -44,10 +44,9 @@ function renderPage(){
   let elementHTML = generateQuestionElement(STORE);
   $('.js-page-content').html(elementHTML);
   console.log('`renderPage` ran');
-  console.log(elementHTML);
 }
 
-renderPage();
+console.log(renderPage());
 
 function generateQuestionElement(store){
   if(store.view === 'intro') {
@@ -63,18 +62,20 @@ function generateQuestionElement(store){
      `);
   }
 
-  else if(STORE.view === 'question') {
+
+//TO DO: Figure out index loop  
+  else if(store.view === 'question') {
     return (
       `<div class = 'question-view js-question-view'>
     <form id="js-quiz-form">
-    <p class="question js-question">${QUESTION}</p>
-    <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${A}</label>
+    <p class="question js-question">${store.prompt[0].questionBlock.question}</p>
+    <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${store.prompt[0].questionBlock.answer[0]}</label>
     <br>
-    <input type="radio" name="answer" id="answer-2" value="1"><label for="answer-2">${B}</label>
+    <input type="radio" name="answer" id="answer-2" value="1"><label for="answer-2">${store.prompt[0].questionBlock.answer[1]}</label>
     <br>
-    <input type="radio" name="answer" id="answer-3" value="2"><label for="answer-3">${C}</label>
+    <input type="radio" name="answer" id="answer-3" value="2"><label for="answer-3">${store.prompt[0].questionBlock.answer[2]}</label>
     <br>
-    <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${D}</label>
+    <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${store.prompt[0].questionBlock.answer[3]}</label>
     <br>
     <button type="submit" class="submit-answer js-submit-answer"><span>Submit</span></button>
     <button type="button" class="next-question js-next-question"><span>Next Question</span></button>
@@ -82,11 +83,11 @@ function generateQuestionElement(store){
     </div>`);
   }
 
-  else if(STORE.view === 'outro') {
+  else if(store.view === 'outro') {
     return (
       `<div class= 'outro-view js-outro-view'>
     <p>Congrats! You finished the quiz!</p>
-    <p>You scored ${NUMBER} out of 5</p>
+    <p>You scored ${store.correctAnswerCount} out of 5</p>
     <p>Would you like to retake this quiz?</p>
     <button type="button">Yes I Would!</button> 
     </div>`);
