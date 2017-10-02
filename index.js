@@ -16,27 +16,27 @@ const STORE = {
 const q1 = {
   question: 'What is the capital of California?',
   answer: ['Los Angeles', 'Sacramento', 'San Francisco', 'Anaheim'],
-  answerKey: 'b'
+  answerKey: 1 //a
 }
 const q2 = {
   question:'Where is Mt. Rushmore located?',
   answer:['Washington D.C', 'Virginia', 'Montana', 'South Dakota'],
-  answerKey: 'd'
+  answerKey: 3 //d
 }
 const q3 = {
   question: 'What is the biggest state in the United States?',
   answer: ['Delaware', 'Texas', 'California', 'Alaska'],
-  answerKey: 'd'
+  answerKey: 3 //d
 }
 const q4 = {
   question: 'Which countries are below the equator?',
   answer: ['Costa Rica', 'Ethiopia', 'Peru', 'Iraq'],
-  answerKey: 'c'
+  answerKey: 2 //c
 }
 const q5 = {
   question:'Which one is NOT a continent?',
   answer: ['North America', 'Austraulia', 'Russia', 'Africa'],
-  answerKey: 'c'
+  answerKey: 2 //c
 }
 
 //Rendering
