@@ -46,8 +46,6 @@ function renderPage(){
   console.log('`renderPage` ran');
 }
 
-console.log(renderPage());
-
 function generateQuestionElement(store){
   if(store.view === 'intro') {
     return (
@@ -55,7 +53,7 @@ function generateQuestionElement(store){
        <h2>Let's take a Geography quiz!</h2>
        <p>Instructions: Please select an answer for each question.</p>
        <p>Have fun!</p>
-       <button type="button">
+       <button type="button" class="start-button js-start-button">
        <span>Start Quiz!</span>
        </button>
      </div>
@@ -63,7 +61,7 @@ function generateQuestionElement(store){
   }
 
 
-//TO DO: Figure out index loop  
+  //TO DO: Figure out index loop  
   else if(store.view === 'question') {
     return (
       `<div class = 'question-view js-question-view'>
@@ -77,7 +75,7 @@ function generateQuestionElement(store){
     <br>
     <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${store.prompt[0].questionBlock.answer[3]}</label>
     <br>
-    <button type="submit" class="submit-answer js-submit-answer"><span>Submit</span></button>
+    <button type="button" class="submit-answer js-submit-answer"><span>Submit</span></button>
     <button type="button" class="next-question js-next-question"><span>Next Question</span></button>
     </form>
     </div>`);
@@ -100,11 +98,20 @@ function startQuiz(){
   //Listen to user click on "START"
   //Change STORE.View to: 'question'
   //Render Page;
+  $('.js-intro-view').on('click', '.js-start-button', event => {
+    console.log('`startQuiz` ran');
+    STORE.view = 'question';
+    renderPage();
+  });
 }
 
-//QUESTION VIEW: STORE gets rendered
+//QUESTION VIEW
 function handleAnswerSubmit(){
   //Listen for user to "submit" button
+  $('.js-question-view').on('click', event => {
+    event.preventDefault();
+    console.log('`handleAnswerSubmit` ran');
+  });
   //Condition: (1) If answer, then activate "next"
   //Condition: (2) If blank, then don't activate
 }
@@ -146,3 +153,11 @@ function handlePlayAgainButton() {
   //Change view to 'intro'
   //renderPage();
 }
+
+function callBackFunctions(){
+  renderPage();
+  startQuiz();
+  handleAnswerSubmit();
+}
+
+$(callBackFunctions);
