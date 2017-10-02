@@ -1,45 +1,43 @@
 'use strict';
 /* global $ */
 
-const q1 = {
-  question: 'What is the capital of California?',
-  answer: ['Los Angeles', 'Sacramento', 'San Francisco', 'Anaheim'],
-  answerKey: 1 //a
-};
-const q2 = {
-  question:'Where is Mt. Rushmore located?',
-  answer:['Washington D.C', 'Virginia', 'Montana', 'South Dakota'],
-  answerKey: 3 //d
-};
-const q3 = {
-  question: 'What is the biggest state in the United States?',
-  answer: ['Delaware', 'Texas', 'California', 'Alaska'],
-  answerKey: 3 //d
-};
-const q4 = {
-  question: 'Which countries are below the equator?',
-  answer: ['Costa Rica', 'Ethiopia', 'Peru', 'Iraq'],
-  answerKey: 2 //c
-};
-const q5 = {
-  question:'Which one is NOT a continent?',
-  answer: ['North America', 'Austraulia', 'Russia', 'Africa'],
-  answerKey: 2 //c
-};
-
-//CONDENSE 
+const questions = [
+  { question: 'What is the capital of California?',
+    answer: ['Los Angeles', 'Sacramento', 'San Francisco', 'Anaheim'],
+    answerKey: 1, //a
+    answered: false,
+    correct: null},
+  { question:'Where is Mt. Rushmore located?',
+    answer:['Washington D.C', 'Virginia', 'Montana', 'South Dakota'],
+    answerKey: 3, //d}
+    answered: false,
+    correct: null},
+  { question: 'What is the biggest state in the United States?',
+    answer: ['Delaware', 'Texas', 'California', 'Alaska'],
+    answerKey: 3, //d
+    answered: false,
+    correct: null},
+  { question: 'Which countries are below the equator?',
+    answer: ['Costa Rica', 'Ethiopia', 'Peru', 'Iraq'],
+    answerKey: 2, //c
+    answered: false,
+    correct: null},
+  { question:'Which one is NOT a continent?',
+    answer: ['North America', 'Austraulia', 'Russia', 'Africa'],
+    answerKey: 2, //c
+    answered: false,
+    correct: null}
+];
 
 const STORE = {
-  prompt: [
-    {questionBlock: q1, answered: false, correct: null}, 
-    {questionBlock: q2, answered: false, correct: null}, 
-    {questionBlock: q3, answered: false, correct: null}, 
-    {questionBlock: q4, answered: false, correct: null}, 
-    {questionBlock: q5, answered: false, correct: null}
-  ],
+  questions,
   view: 'intro',
-  correctAnswerCount: 0
+  currentQuestion: 0,
+  correctAnswerCount: 0,
   //Could use get syntax for report of # of correct answers
+  get lastAnswerCorrect () {
+    return this.prompt[this.currentQuestion].correct === true;
+  }
 }; 
 
 //Rendering
@@ -69,14 +67,14 @@ function generateQuestionElement(store){
     return (
       `<div class=:question-view js-question-view">
     <form id="js-quiz-form">
-    <p class="question js-question">${store.prompt[0].questionBlock.question}</p>
-    <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${store.prompt[0].questionBlock.answer[0]}</label>
+    <p class="question js-question">${store.questions[0].question}</p>
+    <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${store.questions[0].answer[0]}</label>
     <br>
-    <input type="radio" name="answer" id="answer-2" value="1"><label for="answer-2">${store.prompt[0].questionBlock.answer[1]}</label>
+    <input type="radio" name="answer" id="answer-2" value="1"><label for="answer-2">${store.questions[0].answer[1]}</label>
     <br>
-    <input type="radio" name="answer" id="answer-3" value="2"><label for="answer-3">${store.prompt[0].questionBlock.answer[2]}</label>
+    <input type="radio" name="answer" id="answer-3" value="2"><label for="answer-3">${store.questions[0].answer[2]}</label>
     <br>
-    <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${store.prompt[0].questionBlock.answer[3]}</label>
+    <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${store.questions[0].answer[3]}</label>
     <br>
     <button type="submit" class="submit-answer js-submit-answer"><span>Submit</span></button>
     <button type="button" class="next-question js-next-question"><span>Next Question</span></button>
