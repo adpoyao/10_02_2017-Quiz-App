@@ -3,43 +3,74 @@
 
 const STORE = {
   questions: [
-    {}, {}, {}, {}, {}
+    {answered, correct, }, {}, {}, {}, {}
   ],
+  answer: ['b', 'd', 'd', 'c', 'c']
   view: 'intro',
+}; 
 
-};
+//Rendering
+function renderPage(){
+  //Render STORE to DOM
+}
+
+function generateQuestionIndex(){
+  //map function > STORE.questions
+  //return the Index
+}
+
+function generateElement(){
+  //Condition: State
+  //Add in HTML
+}
 
 //INTRO VIEW: listen for user to click "START" button
+function startQuiz(){
+  //Listen to user click on "START"
+  //Change STORE.View to: 'question'
+  //Render Page;
+}
 
 //QUESTION VIEW: STORE gets rendered
+function handleAnswerSubmit(){
+  //Listen for user to "submit" button
+  //Condition: (1) If answer, then activate "next"
+  //Condition: (2) If blank, then don't activate
+}
 
-//Listen for user selections on answers
-
-//Listen for user to "submit" button
-
+function processAnswer(){
+  //Listen for user selections on answers
+}
 /* 
 ALERT: 
-(1)Textual Feedback: Correct or Wrong;
+(1)Textual Feedback: Correct OR Wrong OR Blank Answer;
     if Wrong: display Correct Answer
+    if Blank: instruct user to select answer
 (2)Total correct answers
 */
-
 //User dismiss Alert
 
-//Listen for user to click "continue" button
+function handleNextQuestionButton(){
+  //Listen for user to click "next" button
+  //Condition: Answer must be submitted already
+  //nextQuestion();
+  //renderPage();
 
-//Render to next question 
-
-/*
-If loop reaches last question:
-change to OUTRO VIEW
-*/
+function nextQuestion(){ 
+  //condition: if questions aren't all answered:
+  //add +1 to STORE.questions
+  //condition: if questions are all answered:
+  //change view to: 'outro'
+}
 
 /*
 OUTRO VIEW: 
 Display Total correct answer
-Listen for user to click "Play Again" button
 */
 
-//Reset STORE
-//Go back to QUESTION VIEW
+function handlePlayAgainButton(){
+  //Listen for user to click "Play Again" button
+  //Reset STORE
+  //Change view to 'intro'
+  //renderPage();
+}
