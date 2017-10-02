@@ -59,11 +59,32 @@ function generateQuestionElement(){
   }
 
   else if(STORE.view === 'question') {
-
+    return (
+    `<div class = 'question-view js-question-view'>
+    <form id="js-quiz-form">
+    <p class="question js-question">${QUESTION}</p>
+    <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${A}</label>
+    <br>
+    <input type="radio" name="answer" id="answer-2" value="1"><label for="answer-2">${B}</label>
+    <br>
+    <input type="radio" name="answer" id="answer-3" value="2"><label for="answer-3">${C}</label>
+    <br>
+    <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${D}</label>
+    <br>
+    <button type="submit" class="submit-answer js-submit-answer"><span>Submit</span></button>
+    <button type="button" class="next-question js-next-question"><span>Next Question</span></button>
+    </form>
+    </div>`)
   }
 
   else if(STORE.view === 'outro') {
-    
+    return (
+    `<div class= 'outro-view js-outro-view'>
+    <p>Congrats! You finished the quiz!</p>
+    <p>You scored ${#} out of 5</p>
+    <p>Would you like to retake this quiz?</p>
+    <button type="button">Yes I Would!</button> 
+    </div>`)
   }
 
 }
