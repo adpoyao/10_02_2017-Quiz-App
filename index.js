@@ -3,23 +3,48 @@
 
 const STORE = {
   questions: [
-    {answered, correct, }, {}, {}, {}, {}
+    {question: q1, answered: false, correct: null}, 
+    {question: q2, answered: false, correct: null}, 
+    {question: q3, answered: false, correct: null}, 
+    {question: q4, answered: false, correct: null}, 
+    {question: q5, answered: false, correct: null}
   ],
-  answer: ['b', 'd', 'd', 'c', 'c']
   view: 'intro',
+  correctAnswerCount: 0
 }; 
+
+const q1 = {
+  question: 'What is the capital of California?',
+  answer: ['Los Angeles', 'Sacramento', 'San Francisco', 'Anaheim'],
+  answerKey: 'b'
+}
+const q2 = {
+  question:'Where is Mt. Rushmore located?',
+  answer:['Washington D.C', 'Virginia', 'Montana', 'South Dakota'],
+  answerKey: 'd'
+}
+const q3 = {
+  question: 'What is the biggest state in the United States?',
+  answer: ['Delaware', 'Texas', 'California', 'Alaska'],
+  answerKey: 'd'
+}
+const q4 = {
+  question: 'Which countries are below the equator?',
+  answer: ['Costa Rica', 'Ethiopia', 'Peru', 'Iraq'],
+  answerKey: 'c'
+}
+const q5 = {
+  question:'Which one is NOT a continent?',
+  answer: ['North America', 'Austraulia', 'Russia', 'Africa'],
+  answerKey: 'c'
+}
 
 //Rendering
 function renderPage(){
   //Render STORE to DOM
 }
 
-function generateQuestionIndex(){
-  //map function > STORE.questions
-  //return the Index
-}
-
-function generateElement(){
+function generateQuestionElement(){
   //Condition: State
   //Add in HTML
 }
