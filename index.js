@@ -119,6 +119,7 @@ function handleAnswerSubmit(){
 
 function handleNextQuestionButton() {
   $('.js-page-content').on('click','.js-next-question', event => {
+    $('.js-output').html('');    
     renderPage();
   });
 }
@@ -139,6 +140,13 @@ function processSubmitData(){
   if (!$('input[type=radio]:checked').length > 0) {
     console.log('blank answer detected');
     $('.js-output').html('<p>You need to select an answer!</p>');
+  }
+  //if all questions are answered: change view to: 'outro'
+  if(STORE.currentQuestion < STORE.questions.length) {
+    STORE.currentQuestion ++;
+  } 
+  if(STORE.currentQuestion === 5) {
+    STORE.view = 'outro';
   }
 }
 
@@ -172,14 +180,6 @@ function processAnswer(){
     STORE.questions[currentQuestion].correct = false;
     $('.js-output').html(`<p>Sorry, wrong answer. The correct answer is ${correctAnswer}</p>`);
     //alert(`Sorry, wrong answer. The correct answer is ${correctAnswer}`);
-  }
-
-  //if all questions are answered: change view to: 'outro'
-  if(STORE.currentQuestion < STORE.questions.length) {
-    STORE.currentQuestion ++;
-  } 
-  if(STORE.currentQuestion === 5) {
-    STORE.view = 'outro';
   }
 }
 
