@@ -139,15 +139,28 @@ function processSubmitData(){
 }
 
 function processAnswer(){
-//Condition CORRECT:
+  let {currentQuestion} = STORE;
+  let answerKeyValue = STORE.questions[currentQuestion].answerKey;  
+  let radioValue = $('input[type=radio]:checked').val();
+  radioValue = parseInt(radioValue, 10);
+  
+  //Condition CORRECT:
+  if (answerKeyValue === radioValue){
+    console.log('testing if Correct answer is detected');
+  }
   //update STORE.questions[currentQuestion].correct
   //update total correct question count
   //display YAY!
 
-//Condiction INCORRECT:
-  //update STORE.questions[currentQuestion].correct
-  //display BOO + correct answer
-
+  //Condiction INCORRECT:
+  if (answerKeyValue !== radioValue){
+    let answerArray = STORE.questions[currentQuestion].answer[answerKeyValue];
+    let correctAnswer = answerArray[answerKeyValue];
+    console.log(correctAnswer + ' = correctAnswer');  
+    STORE.questions[currentQuestion].correct = false;
+    $('.js-output').html('<p>This answer is incorrect</p>, the right answer is');
+    //display BOO + correct answer
+  }
 //Output result, 
 }
 
