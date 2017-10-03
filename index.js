@@ -29,16 +29,15 @@ const questions = [
     correct: null}
 ];
 
-const STORE = {
+
+const defaultStore = {
   questions,
   view: 'intro',
   currentQuestion: 0,
   correctAnswerCount: 0,
-  //Could use get syntax for report of # of correct answers
-  get lastAnswerCorrect () {
-    return this.prompt[this.currentQuestion].correct === true;
-  }
 }; 
+
+let STORE = Object.assign({}, defaultStore);
 
 //Rendering
 function renderPage(){
@@ -161,21 +160,19 @@ function processAnswer(){
   }
 
   //Condiction INCORRECT:
-  if (answerKeyValue !== radioValue){
+  if (answerKeyValue !== radioValue) {
     const correctAnswer = STORE.questions[currentQuestion].answer[answerKeyValue];
     STORE.questions[currentQuestion].correct = false;
     alert(`Sorry, wrong answer. The correct answer is ${correctAnswer}`);
   }
-  STORE.currentQuestion ++;
-}
 
-function mysteryFunction(){ 
-  //condition: if questions aren't all answered:
-  ////output: Need to finish this question first
-  //condition: if questions are all answered:
-  //STORE.currentQuestion ++;
   //if all questions are answered: change view to: 'outro'
-  
+  if(STORE.currentQuestion < STORE.questions.length) {
+    STORE.currentQuestion ++;
+  } 
+  if(STORE.currentQuestion === 5) {
+    STORE.view = 'outro';
+  }
 }
 
 //OUTRO VIEW
@@ -183,16 +180,14 @@ function mysteryFunction(){
 function handlePlayAgainButton() {
   //Listen for user click on replay button  
   $('.js-page-content').on('click','.js-replay-button', event => {
-    //Reset STORE
-    //Change view to 'intro'
     resetStoreValue();
     renderPage();
   });
 }
 
 function resetStoreValue() {
-  STORE.view = 'intro';
-  //insert function here
+  //Reset STORE
+  STORE = Object.assign({}, defaultStore);
 }
 
 function callBackFunctions(){
