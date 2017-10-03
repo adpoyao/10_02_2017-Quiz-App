@@ -1,3 +1,57 @@
 * {
   box-sizing: border-box;
 }
+
+body {
+  background-image: url("https://s3.amazonaws.com/marquee-test-akiaisur2rgicbmpehea/GWMHzsXTFeT8V2u16D2l_Hero%20Image.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+main {
+  font-family: 'Poppins', sans-serif;  
+  color: black;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 50%;
+  height: 500px;
+  margin: 100px auto;
+  border: 3px;
+  border-radius: 5px;
+  padding: 10px
+}
+
+h2, .question-counter {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.question {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.8em;
+}
+
+button {
+  padding: 8px;
+  color: #5F5F5F;
+}
+
+button:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.submit-answer, .next-question {
+  width: 100px;
+  margin-top: 10px;
+}
+
+input[type=radio] {
+  margin: 10px;
+}
+
+.output {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.2em;
+}

@@ -64,7 +64,7 @@ function generateQuestionElement(store){
     return (
       `<div class="question-view js-question-view">
     <form action="#" id="js-quiz-form">
-    <div>Question #${store.currentQuestion +1}</div>
+    <div class="question-counter">Question #${store.currentQuestion +1}</div>
     <p class="question js-question">${store.questions[currentQuestion].question}</p>
     <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${store.questions[currentQuestion].answer[0]}</label>
     <br>
@@ -114,6 +114,11 @@ function handleAnswerSubmit(){
     event.preventDefault();
     console.log('`handleAnswerSubmit` ran');
     processSubmitData();
+  });
+}
+
+function handleNextQuestionButton() {
+  $('.js-page-content').on('click','.js-next-question', event => {
     renderPage();
   });
 }
@@ -127,20 +132,15 @@ function processSubmitData(){
     console.log('checked radio button detected');
     STORE.questions[currentQuestion].answered = true;
     processAnswer();
+    $('button[type=submit]').hide();
+    $('#js-quiz-form').append('<button type="button" class="next-question js-next-question"><span>Next</span></button>');
   }
   //Condition: (2) If blank, then don't activate 
   if (!$('input[type=radio]:checked').length > 0) {
     console.log('blank answer detected');
-    $('.js-output').html('You need to select an answer!');
+    $('.js-output').html('<p>You need to select an answer!</p>');
   }
 }
-
-//After user press SUBMIT
-//Display Result in DIV output
-//DON'T want to render page
-//Disable/Hide Submit Button
-//Activate "Next Question Button"
-//User press Next Question > Render page to new question
 
 function processAnswer(){
   let {currentQuestion} = STORE;
@@ -154,7 +154,6 @@ function processAnswer(){
   //alert Feedback & total points
   if (answerKeyValue === radioValue){
     console.log('correct answer is detected');
-    $('.js-output').html('<p>CORRECT!</p>');
     STORE.questions[currentQuestion].correct = true;
     STORE.correctAnswerCount ++;
     let points;
@@ -163,14 +162,16 @@ function processAnswer(){
     } if(STORE.correctAnswerCount >1){
       points = 'points';
     }
-    alert(`CORRECT! You have ${STORE.correctAnswerCount} ${points}!`);
+    $('.js-output').html(`<p>CORRECT! You have ${STORE.correctAnswerCount} ${points}!</p>`);
+    // alert(`CORRECT! You have ${STORE.correctAnswerCount} ${points}!`);
   }
 
   //Condiction INCORRECT:
   if (answerKeyValue !== radioValue) {
     const correctAnswer = STORE.questions[currentQuestion].answer[answerKeyValue];
     STORE.questions[currentQuestion].correct = false;
-    alert(`Sorry, wrong answer. The correct answer is ${correctAnswer}`);
+    $('.js-output').html(`<p>Sorry, wrong answer. The correct answer is ${correctAnswer}</p>`);
+    //alert(`Sorry, wrong answer. The correct answer is ${correctAnswer}`);
   }
 
   //if all questions are answered: change view to: 'outro'
@@ -201,6 +202,7 @@ function callBackFunctions(){
   renderPage();
   startQuiz();
   handleAnswerSubmit();
+  handleNextQuestionButton();
   handlePlayAgainButton();
 }
 
