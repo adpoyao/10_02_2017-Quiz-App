@@ -29,7 +29,6 @@ const questions = [
     correct: null}
 ];
 
-
 const defaultStore = {
   questions,
   view: 'intro',
@@ -65,6 +64,7 @@ function generateQuestionElement(store){
     return (
       `<div class="question-view js-question-view">
     <form action="#" id="js-quiz-form">
+    <div>Question #${store.currentQuestion +1}</div>
     <p class="question js-question">${store.questions[currentQuestion].question}</p>
     <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${store.questions[currentQuestion].answer[0]}</label>
     <br>
@@ -134,6 +134,13 @@ function processSubmitData(){
     $('.js-output').html('You need to select an answer!');
   }
 }
+
+//After user press SUBMIT
+//Display Result in DIV output
+//DON'T want to render page
+//Disable/Hide Submit Button
+//Activate "Next Question Button"
+//User press Next Question > Render page to new question
 
 function processAnswer(){
   let {currentQuestion} = STORE;
