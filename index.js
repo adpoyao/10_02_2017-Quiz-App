@@ -48,6 +48,7 @@ function renderPage(){
 }
 
 function generateQuestionElement(store){
+  let {currentQuestion} = STORE; 
   if(store.view === 'intro') {
     return (
       `<div class= 'intro-view js-intro-view'>
@@ -65,19 +66,20 @@ function generateQuestionElement(store){
   //TO DO: Figure out index loop  
   else if(store.view === 'question') {
     return (
-      `<div class=:question-view js-question-view">
+      `<div class="question-view js-question-view">
     <form id="js-quiz-form">
-    <p class="question js-question">${store.questions[0].question}</p>
-    <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${store.questions[0].answer[0]}</label>
+    <p class="question js-question">${store.questions[currentQuestion].question}</p>
+    <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${store.questions[currentQuestion].answer[0]}</label>
     <br>
-    <input type="radio" name="answer" id="answer-2" value="1"><label for="answer-2">${store.questions[0].answer[1]}</label>
+    <input type="radio" name="answer" id="answer-2" value="1"><label for="answer-2">${store.questions[currentQuestion].answer[1]}</label>
     <br>
-    <input type="radio" name="answer" id="answer-3" value="2"><label for="answer-3">${store.questions[0].answer[2]}</label>
+    <input type="radio" name="answer" id="answer-3" value="2"><label for="answer-3">${store.questions[currentQuestion].answer[2]}</label>
     <br>
-    <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${store.questions[0].answer[3]}</label>
+    <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${store.questions[currentQuestion].answer[3]}</label>
     <br>
     <button type="submit" class="submit-answer js-submit-answer"><span>Submit</span></button>
     <button type="button" class="next-question js-next-question"><span>Next Question</span></button>
+    <div class="output js-output"></div>
     </form>
     </div>`);
   }
@@ -106,19 +108,33 @@ function startQuiz(){
   });
 }
 
+//Loop
+//handleAnswerSubmit
+
 //QUESTION VIEW
 function handleAnswerSubmit(){
+  let {currentQuestion} = STORE;
   //Listen for Answer to "submit" button
   $('.js-page-content').on('submit','#js-quiz-form', event => {
     event.preventDefault();
     console.log('`handleAnswerSubmit` ran');
+    console.log(event.target);
+    processAnswer(event.target);
   });
-  //Condition: (1) If answer, then activate "next"
-  //Condition: (2) If blank, then don't activate
 }
 
-function processAnswer(){
+function processAnswer(currentEvent){
+  //Condition: (1) If answer, activate "next", then +1 to currentQuestion in STORE
+  if ($('input[type=radio]:checked').length > 0) {
+    console.log('radio button is checked');
+    
+  }
+  //Condition: (2) If blank, then don't activate 
+  if (!$('input[type=radio]:checked').length > 0) {
+    console.log('need to select one answer!');
+  }
 //Listen for user selections on answers
+//change STORE.answered to True
 /* 
 ALERT: 
 (1)Textual Feedback: Correct OR Wrong OR Blank Answer;
