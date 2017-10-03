@@ -82,7 +82,7 @@ function generateQuestionElement(store){
   else if(store.view === 'outro') {
     return (
       `<div class= 'outro-view js-outro-view'>
-    <p>Congrats! You finished the quiz!</p>
+    <h2>Congrats! You finished the quiz!</h2>
     <p>You scored ${store.correctAnswerCount} out of 5</p>
     <p>Would you like to retake this quiz?</p>
     <button type="button" class="replay-button js-replay-button">Yes I Would!</button> 
