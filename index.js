@@ -4,27 +4,27 @@
 const questions = [
   { question: 'What is the capital of California?',
     answer: ['Los Angeles', 'Sacramento', 'San Francisco', 'Anaheim'],
-    answerKey: 1, //a
+    answerKey: 1,
     answered: false,
     correct: null},
   { question:'Where is Mt. Rushmore located?',
     answer:['Washington D.C', 'Virginia', 'Montana', 'South Dakota'],
-    answerKey: 3, //d}
+    answerKey: 3,
     answered: false,
     correct: null},
   { question: 'What is the biggest state in the United States?',
     answer: ['Delaware', 'Texas', 'California', 'Alaska'],
-    answerKey: 3, //d
+    answerKey: 3,
     answered: false,
     correct: null},
   { question: 'Which countries are below the equator?',
     answer: ['Costa Rica', 'Ethiopia', 'Peru', 'Iraq'],
-    answerKey: 2, //c
+    answerKey: 2,
     answered: false,
     correct: null},
   { question:'Which one is NOT a continent?',
     answer: ['North America', 'Austraulia', 'Russia', 'Africa'],
-    answerKey: 2, //c
+    answerKey: 2,
     answered: false,
     correct: null}
 ];
@@ -76,8 +76,6 @@ function generateQuestionElement(store){
     <input type="radio" name="answer" id="answer-4" value="3"><label for="answer-4">${store.questions[currentQuestion].answer[3]}</label>
     <br>
     <button type="submit" class="submit-answer js-submit-answer"><span>Submit</span></button>
-    <button type="button" class="next-question js-next-question"><span>Next Question</span></button>
-    <div class="output js-output"></div>
     </form>
     </div>`);
   }
@@ -145,37 +143,33 @@ function processAnswer(){
   radioValue = parseInt(radioValue, 10);
   
   //Condition CORRECT:
-  if (answerKeyValue === radioValue){
-    console.log('testing if Correct answer is detected');
-  }
   //update STORE.questions[currentQuestion].correct
   //update total correct question count
-  //display YAY!
+  //alert Feedback & total points
+  if (answerKeyValue === radioValue){
+    console.log('correct answer is detected');
+    $('.js-output').html('<p>CORRECT!</p>');
+    STORE.questions[currentQuestion].correct = true;
+    STORE.correctAnswerCount ++;
+    let points;
+    if(STORE.correctAnswerCount <= 1){
+      points = 'point';
+    } if(STORE.correctAnswerCount >1){
+      points = 'points';
+    }
+    alert(`CORRECT! You have ${STORE.correctAnswerCount} ${points}!`);
+  }
 
   //Condiction INCORRECT:
   if (answerKeyValue !== radioValue){
-    let answerArray = STORE.questions[currentQuestion].answer[answerKeyValue];
-    let correctAnswer = answerArray[answerKeyValue];
-    console.log(correctAnswer + ' = correctAnswer');  
+    const correctAnswer = STORE.questions[currentQuestion].answer[answerKeyValue];
     STORE.questions[currentQuestion].correct = false;
-    $('.js-output').html('<p>This answer is incorrect</p>, the right answer is');
-    //display BOO + correct answer
+    alert(`Sorry, wrong answer. The correct answer is ${correctAnswer}`);
   }
-//Output result, 
+  STORE.currentQuestion ++;
 }
 
-
-function handleNextQuestionButton(){
-  //Listen for user to click "next" button
-  $('js-page-content').on('click', '.js-next-question', event => {
-    console.log('`js-page-content` ran');
-    //Condition: Question at index of CurrentQ must have 'answered = true'
-    renderPage();
-  });
-  //nextQuestion();
-}
-
-function nextQuestion(){ 
+function mysteryFunction(){ 
   //condition: if questions aren't all answered:
   ////output: Need to finish this question first
   //condition: if questions are all answered:
