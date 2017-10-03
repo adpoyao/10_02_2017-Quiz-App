@@ -62,12 +62,10 @@ function generateQuestionElement(store){
      `);
   }
 
-
-  //TO DO: Figure out index loop  
   else if(store.view === 'question') {
     return (
       `<div class="question-view js-question-view">
-    <form id="js-quiz-form">
+    <form action="#" id="js-quiz-form">
     <p class="question js-question">${store.questions[currentQuestion].question}</p>
     <input type="radio" name="answer" id="answer-1" value="0"><label for="answer-1">${store.questions[currentQuestion].answer[0]}</label>
     <br>
@@ -90,91 +88,111 @@ function generateQuestionElement(store){
     <p>Congrats! You finished the quiz!</p>
     <p>You scored ${store.correctAnswerCount} out of 5</p>
     <p>Would you like to retake this quiz?</p>
-    <button type="button">Yes I Would!</button> 
+    <button type="button" class="replay-button js-replay-button">Yes I Would!</button> 
     </div>`);
   }
 }
 
 
-//INTRO VIEW: listen for user to click "START" button
+//INTRO VIEW
+
 function startQuiz(){
   //Listen to user click on "START"
   //Change STORE.View to: 'question'
   //Render Page;
-  $('.js-intro-view').on('click', '.js-start-button', event => {
+  $('.js-page-content').on('click', '.js-start-button', event => {
     console.log('`startQuiz` ran');
     STORE.view = 'question';
     renderPage();
   });
 }
 
-//Loop
-//handleAnswerSubmit
-
 //QUESTION VIEW
+//Functions goes: handleAnswerSubmit calls -> processSubmitData calls ->  processAnswer
+
 function handleAnswerSubmit(){
   let {currentQuestion} = STORE;
   //Listen for Answer to "submit" button
   $('.js-page-content').on('submit','#js-quiz-form', event => {
     event.preventDefault();
     console.log('`handleAnswerSubmit` ran');
-    console.log(event.target);
-    processAnswer(event.target);
+    processSubmitData();
+    renderPage();
   });
 }
 
-function processAnswer(currentEvent){
-  //Condition: (1) If answer, activate "next", then +1 to currentQuestion in STORE
+function processSubmitData(){
+  let {currentQuestion} = STORE;
+  //Condition: (1) If answer, activate "next"
+  //Increase count to STORE.currentQuestion
+  //See if answer is correct
   if ($('input[type=radio]:checked').length > 0) {
-    console.log('radio button is checked');
-    
+    console.log('checked radio button detected');
+    STORE.questions[currentQuestion].answered = true;
+    processAnswer();
   }
   //Condition: (2) If blank, then don't activate 
   if (!$('input[type=radio]:checked').length > 0) {
-    console.log('need to select one answer!');
+    console.log('blank answer detected');
+    $('.js-output').html('You need to select an answer!');
   }
-//Listen for user selections on answers
-//change STORE.answered to True
-/* 
-ALERT: 
-(1)Textual Feedback: Correct OR Wrong OR Blank Answer;
-    if Wrong: display Correct Answer
-    if Blank: instruct user to select answer
-(2)Total correct answers
-*/
-//User dismiss Alert
 }
+
+function processAnswer(){
+//Condition CORRECT:
+  //update STORE.questions[currentQuestion].correct
+  //update total correct question count
+  //display YAY!
+
+//Condiction INCORRECT:
+  //update STORE.questions[currentQuestion].correct
+  //display BOO + correct answer
+
+//Output result, 
+}
+
 
 function handleNextQuestionButton(){
   //Listen for user to click "next" button
-  //Condition: Answer must be submitted already
+  $('js-page-content').on('click', '.js-next-question', event => {
+    console.log('`js-page-content` ran');
+    //Condition: Question at index of CurrentQ must have 'answered = true'
+    renderPage();
+  });
   //nextQuestion();
-  //renderPage();
 }
 
 function nextQuestion(){ 
   //condition: if questions aren't all answered:
-  //add +1 to STORE.questions
+  ////output: Need to finish this question first
   //condition: if questions are all answered:
-  //change view to: 'outro'
+  //STORE.currentQuestion ++;
+  //if all questions are answered: change view to: 'outro'
+  
 }
 
-/*
-OUTRO VIEW: 
-Display Total correct answer
-*/
+//OUTRO VIEW
 
 function handlePlayAgainButton() {
-  //Listen for user to click "Play Again" button
-  //Reset STORE
-  //Change view to 'intro'
-  //renderPage();
+  //Listen for user click on replay button  
+  $('.js-page-content').on('click','.js-replay-button', event => {
+    //Reset STORE
+    //Change view to 'intro'
+    resetStoreValue();
+    renderPage();
+  });
+}
+
+function resetStoreValue() {
+  STORE.view = 'intro';
+  //insert function here
 }
 
 function callBackFunctions(){
   renderPage();
   startQuiz();
   handleAnswerSubmit();
+  handlePlayAgainButton();
 }
 
 $(callBackFunctions);
